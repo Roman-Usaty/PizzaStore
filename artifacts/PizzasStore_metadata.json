@@ -14,12 +14,95 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_adminAddress",
+						"type": "address"
+					}
+				],
+				"name": "addAdmin",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint32",
+								"name": "bonus",
+								"type": "uint32"
+							},
+							{
+								"components": [
+									{
+										"internalType": "bool",
+										"name": "_admin",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "_manager",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "_user",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct PizzasStore.Roles",
+								"name": "role",
+								"type": "tuple"
+							}
+						],
+						"internalType": "struct PizzasStore.User",
+						"name": "myAdmin",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_managerAddress",
 						"type": "address"
 					}
 				],
 				"name": "addManager",
-				"outputs": [],
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint32",
+								"name": "bonus",
+								"type": "uint32"
+							},
+							{
+								"components": [
+									{
+										"internalType": "bool",
+										"name": "_admin",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "_manager",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "_user",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct PizzasStore.Roles",
+								"name": "role",
+								"type": "tuple"
+							}
+						],
+						"internalType": "struct PizzasStore.User",
+						"name": "myManager",
+						"type": "tuple"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -36,9 +119,14 @@
 						"type": "string"
 					},
 					{
-						"internalType": "string[]",
-						"name": "_ingridients",
-						"type": "string[]"
+						"internalType": "bool",
+						"name": "_isPizza",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "_isDrinks",
+						"type": "bool"
 					},
 					{
 						"internalType": "uint16",
@@ -46,10 +134,15 @@
 						"type": "uint16"
 					}
 				],
-				"name": "addPizza",
+				"name": "addProduct",
 				"outputs": [
 					{
 						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
 							{
 								"internalType": "string",
 								"name": "name",
@@ -61,9 +154,19 @@
 								"type": "string"
 							},
 							{
-								"internalType": "string[]",
-								"name": "ingridients",
-								"type": "string[]"
+								"internalType": "bool",
+								"name": "isPizza",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isDrinks",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint24",
+								"name": "amount",
+								"type": "uint24"
 							},
 							{
 								"internalType": "uint16",
@@ -76,8 +179,8 @@
 								"type": "uint8"
 							}
 						],
-						"internalType": "struct PizzasStore.Pizza",
-						"name": "newPizza",
+						"internalType": "struct PizzasStore.Product",
+						"name": "newProduct",
 						"type": "tuple"
 					}
 				],
@@ -88,7 +191,7 @@
 				"inputs": [
 					{
 						"internalType": "string[]",
-						"name": "_basket",
+						"name": "_basketOfItemName",
 						"type": "string[]"
 					}
 				],
@@ -100,7 +203,20 @@
 						"type": "uint32"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string[]",
+						"name": "_basketOfItemName",
+						"type": "string[]"
+					}
+				],
+				"name": "payOrder",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -110,18 +226,35 @@
 					{
 						"components": [
 							{
-								"internalType": "address",
-								"name": "_userAddress",
-								"type": "address"
-							},
-							{
 								"internalType": "uint32",
 								"name": "bonus",
 								"type": "uint32"
+							},
+							{
+								"components": [
+									{
+										"internalType": "bool",
+										"name": "_admin",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "_manager",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "_user",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct PizzasStore.Roles",
+								"name": "role",
+								"type": "tuple"
 							}
 						],
 						"internalType": "struct PizzasStore.User",
-						"name": "",
+						"name": "myUser",
 						"type": "tuple"
 					}
 				],
@@ -132,11 +265,11 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "newAdmin",
+						"name": "newOwner",
 						"type": "address"
 					}
 				],
-				"name": "transferAdmin",
+				"name": "transferOwner",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -148,6 +281,11 @@
 					{
 						"components": [
 							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
 								"internalType": "string",
 								"name": "name",
 								"type": "string"
@@ -158,9 +296,19 @@
 								"type": "string"
 							},
 							{
-								"internalType": "string[]",
-								"name": "ingridients",
-								"type": "string[]"
+								"internalType": "bool",
+								"name": "isPizza",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isDrinks",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint24",
+								"name": "amount",
+								"type": "uint24"
 							},
 							{
 								"internalType": "uint16",
@@ -173,7 +321,7 @@
 								"type": "uint8"
 							}
 						],
-						"internalType": "struct PizzasStore.Pizza[]",
+						"internalType": "struct PizzasStore.Product[]",
 						"name": "",
 						"type": "tuple[]"
 					}
@@ -195,7 +343,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"pizza.sol": "PizzasStore"
+			"pizzastore.sol": "PizzasStore"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -209,11 +357,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"pizza.sol": {
-			"keccak256": "0xa0686cdc931bc83dad14c3e53ff8a022d9b6b4ccc943120ea485953ba8a1712a",
+		"pizzastore.sol": {
+			"keccak256": "0xb85953bfc94d13f4d006b9478d0837c6d62bbc629b8630222a44c78b69f84b4d",
+			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://e76fded5eaf4159f8eed402e6f42fef3949adfd2e7ab9ed41ac925eb3917927d",
-				"dweb:/ipfs/QmVe4Bozhp6nJUUboKzaZhCxCMhYC84DHwzaZ8HdzDPcHW"
+				"bzz-raw://f1a0c869c70cbdeedbdd5c23db8a08ca1430c1b2835a0fa18222f7bae4a5e860",
+				"dweb:/ipfs/QmVybwfLd1tmoj3YLb8By6J6MiMQH3LbF4XWsfqadfPzgo"
 			]
 		}
 	},
